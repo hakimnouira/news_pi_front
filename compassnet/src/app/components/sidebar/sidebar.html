@@ -1,0 +1,18 @@
+<div class="fixed top-16 left-0 h-[calc(100vh-4rem)] 
+            w-[250px] bg-gradient-to-b from-[#1e1b4b] to-[#4c1d95] 
+            text-white p-4 transition-transform duration-300"
+     [class.-translate-x-full]="!open">
+
+  <button class="absolute right-[-3rem] top-0 bg-primary-500 text-white w-10 h-10 rounded flex items-center justify-center"
+          (click)="toggle()">
+    ☰
+  </button>
+
+  <nav class="mt-12 flex flex-col gap-4">
+    <a routerLink="/" routerLinkActive="font-bold" class="hover:text-secondary-300">Home</a>
+    <a routerLink="/archive" class="hover:text-secondary-300">Archive</a>
+    <a routerLink="/about" class="hover:text-secondary-300">About</a>
+    <a routerLink="/search" class="hover:text-secondary-300">Search</a>
+    <a routerLink="/settings" class="hover:text-secondary-300">Settings</a>
+  </nav>
+</div>
