@@ -1,1 +1,74 @@
-<p>signup works!</p>
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#1e1b4b] to-[#4c1d95] px-4">
+  <div class="w-full max-w-md bg-white rounded-xl shadow-xl overflow-hidden">
+
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-[#1e1b4b] to-[#4c1d95] py-6 px-8 text-center text-white">
+      <h1 class="text-2xl font-bold">CompassNet</h1>
+      <p class="opacity-80 text-sm mt-1">Create your account</p>
+    </div>
+
+    <div class="px-8 py-8">
+
+      <div *ngIf="errorMessage" class="text-red-600 mb-4 text-center">
+        {{ errorMessage }}
+      </div>
+
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="space-y-5">
+
+        <div>
+          <label class="text-sm font-medium text-gray-700">First Name</label>
+          <input type="text" formControlName="first_name"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#4c1d95]">
+        </div>
+
+        <div>
+          <label class="text-sm font-medium text-gray-700">Last Name</label>
+          <input type="text" formControlName="last_name"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#4c1d95]">
+        </div>
+
+        <div>
+          <label class="text-sm font-medium text-gray-700">Username</label>
+          <input type="text" formControlName="username"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#4c1d95]">
+        </div>
+
+        <div>
+          <label class="text-sm font-medium text-gray-700">Email</label>
+          <input type="email" formControlName="email"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#4c1d95]">
+        </div>
+
+        <div>
+          <label class="text-sm font-medium text-gray-700">Password</label>
+          <input [type]="showPassword ? 'text' : 'password'"
+                 formControlName="password"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#4c1d95]"
+                 placeholder="••••••••">
+          <button type="button"
+                  (click)="togglePassword()"
+                  class="text-xs mt-1 text-[#4c1d95] hover:underline">
+            {{ showPassword ? 'Hide' : 'Show' }} Password
+          </button>
+        </div>
+
+        <button type="submit"
+                class="w-full py-2 rounded-lg text-white bg-[#4c1d95] hover:bg-[#3a1574] transition">
+          Create Account
+        </button>
+
+        <div class="text-center text-sm text-gray-600">
+          Already have an account?
+          <button type="button" (click)="goToSignIn()" class="text-[#4c1d95] hover:underline">
+            Sign In
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="bg-gray-50 px-8 py-3 text-center text-xs text-gray-500">
+      © {{year}} CompassNet. All rights reserved.
+    </div>
+  </div>
+</div>

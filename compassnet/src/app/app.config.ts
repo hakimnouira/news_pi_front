@@ -2,11 +2,17 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChang
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes)
+    provideRouter(routes),
+    // Register the class-based interceptor in DI
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    // Now withInterceptorsFromDi() can auto-discover it (no args!)
+    provideHttpClient(withInterceptorsFromDi()),
   ]
 };
