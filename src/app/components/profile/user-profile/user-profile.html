@@ -1,0 +1,95 @@
+<div class="page" *ngIf="!loading; else loadingTpl">
+  <div class="header">
+    <h2>My Profile</h2>
+    <a class="btn" routerLink="/">Home</a>
+  </div>
+
+  <div class="alert error" *ngIf="error">{{ error }}</div>
+  <div class="alert success" *ngIf="success">Profile updated successfully.</div>
+
+  <div class="grid" *ngIf="me">
+    
+    <!-- Left: Avatar & summary -->
+    <div class="card left">
+
+      <!-- Avatar section -->
+      <div class="avatar-wrap">
+
+        <!-- show preview if user selected a file, otherwise show current avatar -->
+        <ng-container *ngIf="avatarPreview(); else noAvatar">
+          <img [src]="avatarPreview()!" alt="avatar" />
+        </ng-container>
+
+        <ng-template #noAvatar>
+          <div class="avatar-placeholder">👤</div>
+        </ng-template>
+
+      </div>
+
+      <!-- Choose avatar -->
+      <div class="upload-avatar">
+        <label class="file-btn">
+          <input type="file" accept="image/*" (change)="onFileSelected($event)">
+          Choose Image
+        </label>
+
+        <button
+          class="btn primary"
+          (click)="uploadAvatar()"
+          [disabled]="saving || !selectedAvatar"
+          style="margin-top: 8px;"
+        >
+          {{ saving ? 'Uploading…' : 'Upload Avatar' }}
+        </button>
+      </div>
+
+      <!-- Summary -->
+      <div class="summary">
+        <div class="name">{{ me.first_name || '' }} {{ me.last_name || '' }}</div>
+        <div class="username">@{{ me.username }}</div>
+        <div class="email">{{ me.email }}</div>
+
+        <div class="roles" *ngIf="me.roles?.length">
+          <span class="role" *ngFor="let r of me.roles">{{ r.name }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Editable form -->
+    <form class="card right" (ngSubmit)="save()">
+
+      <div class="row">
+        <label>Username</label>
+        <input type="text" [(ngModel)]="form.username" name="username" placeholder="your_handle" />
+        <small class="hint">3-50 chars; letters, numbers, dot, underscore, hyphen</small>
+      </div>
+
+      <div class="row two">
+        <div>
+          <label>First Name</label>
+          <input type="text" [(ngModel)]="form.first_name" name="first_name">
+        </div>
+
+        <div>
+          <label>Last Name</label>
+          <input type="text" [(ngModel)]="form.last_name" name="last_name">
+        </div>
+      </div>
+
+      <div class="row">
+        <label>Bio</label>
+        <textarea rows="6" [(ngModel)]="form.bio" name="bio" placeholder="Tell people about you…"></textarea>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" type="submit" [disabled]="saving">
+          {{ saving ? 'Saving…' : 'Save Changes' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #loadingTpl>
+  <div class="page muted">Loading…</div>
+</ng-template>

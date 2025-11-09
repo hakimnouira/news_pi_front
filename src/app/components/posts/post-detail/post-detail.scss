@@ -1,0 +1,32 @@
+.page { max-width: 900px; margin: 0 auto; padding: 1rem; }
+.header { display: flex; align-items: center; gap: .5rem; margin-bottom: 1rem; }
+.spacer { flex: 1; }
+
+.card {
+  background: #0f172a;
+  border: 1px solid #1f2a44;
+  border-radius: 14px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.top { display: flex; gap: .5rem; align-items: baseline; }
+.title { color: #e2e8f0; margin: 0; }
+.id { color: #8aa0ff; font-size: .9rem; }
+.meta { color: #8691ac; margin-bottom: .5rem; }
+.content { color: #c5d1f2; white-space: pre-wrap; }
+
+.post-media {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #243355;
+  background: #0b1222;
+  margin-bottom: 0.8rem;
+  max-height: 600px;
+  object-fit: contain;
+}
+
+.comment-area { display: grid; gap: .75rem; }
+
+.btn { background: #18213a; border: 1px solid #253255; color: #dbe2ff; border-radius: 10px; padding: .45rem .8rem; cursor: pointer; text-decoration: none; }
+.alert.error { color: #ff8a80; margin: .5rem 0; }
+.muted { color: #8c95b2; }

@@ -1,0 +1,78 @@
+<div class="fixed top-16 left-0 h-[calc(100vh-4rem)] w-[250px] 
+     bg-gradient-to-b from-[#1e1b4b] to-[#4c1d95] text-white p-4 
+     transition-transform duration-300 shadow-xl z-40"
+     [class.-translate-x-full]="!open">
+
+  <button class="absolute right-[-2.6rem] top-2 bg-[#4c1d95] hover:bg-[#6d28d9]
+          text-white w-10 h-10 rounded-md flex items-center justify-center shadow-lg"
+          (click)="toggle()">
+    Menu
+  </button>
+
+  <nav class="mt-6 flex flex-col gap-2">
+
+    <!-- Home -->
+    <button routerLink="/" routerLinkActive="active-link" class="sidebar-btn">
+      Home
+    </button>
+
+    <!-- Propaganda Checker -->
+    <button routerLink="/isitpropaganda" routerLinkActive="active-link" class="sidebar-btn">
+      Is it propaganda?
+    </button>
+
+    <!-- Geopolitical Game -->
+    <button routerLink="/geo-rag-game" routerLinkActive="active-link" class="sidebar-btn">
+      Geopolitical game
+    </button>
+
+    <!-- Articles -->
+    <button routerLink="/articles" routerLinkActive="active-link" class="sidebar-btn">
+      Articles
+    </button>
+
+    <!-- Community Posts -->
+    <button routerLink="/posts" routerLinkActive="active-link" class="sidebar-btn">
+      Our Community Posts
+    </button>
+
+    <!-- ✅ SECTION SUMMARIZER (NOUVEAU) -->
+    <div class="mt-4 pt-4 border-t border-white/20">
+      <p class="text-xs uppercase text-white/60 px-3 mb-2 font-semibold">📰 News Summarizer</p>
+      
+      <!-- Articles List -->
+      <button routerLink="/summarizer" 
+              routerLinkActive="active-link" 
+              [routerLinkActiveOptions]="{exact: true}"
+              class="sidebar-btn pl-6 flex items-center gap-2">
+        <span>📝</span>
+        <span>Articles</span>
+      </button>
+
+      <!-- Dashboard -->
+      <button routerLink="/summarizer/dashboard" 
+              routerLinkActive="active-link" 
+              class="sidebar-btn pl-6 flex items-center gap-2">
+        <span>📊</span>
+        <span>Dashboard</span>
+      </button>
+    </div>
+
+    <!-- Profile -->
+    <div class="mt-4 pt-4 border-t border-white/20">
+      <button routerLink="/profile" routerLinkActive="active-link" class="sidebar-btn">
+        Profile
+      </button>
+    </div>
+
+    <!-- Admin Section -->
+    <div *ngIf="isAdmin()" class="mt-4 pt-4 border-t border-white/20">
+      <p class="text-xs uppercase text-white/60 px-3 mb-2 font-semibold">Admin</p>
+      
+      <button routerLink="/admin/users" routerLinkActive="active-link" class="sidebar-btn pl-6">
+        Users
+      </button>
+    </div>
+
+  </nav>
+</div>

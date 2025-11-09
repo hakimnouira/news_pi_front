@@ -1,0 +1,19 @@
+.card {
+  background: #0f172a;
+  border: 1px solid #1f2a44;
+  border-radius: 14px;
+  padding: 1rem;
+}
+h3 { color: #cfd8ff; margin: 0 0 .5rem; }
+textarea {
+  width: 100%;
+  background: #0b1222;
+  color: #e2e8f0;
+  border: 1px solid #263352;
+  border-radius: 10px;
+  padding: .6rem .8rem;
+}
+.actions { margin-top: .5rem; display: flex; justify-content: flex-end; }
+.btn { background: #18213a; border: 1px solid #253255; color: #dbe2ff; border-radius: 10px; padding: .45rem .8rem; cursor: pointer; }
+.btn.primary { background: #673ab7; border-color: #7e57c2; }
+.alert.error { color: #ff8a80; margin-bottom: .5rem; }
