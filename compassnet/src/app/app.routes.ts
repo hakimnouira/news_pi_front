@@ -11,6 +11,7 @@ import { PostFormComponent } from './components/posts/post-form/post-form';
 import { PostDetailComponent } from './components/posts/post-detail/post-detail';
 import { UserProfileComponent } from './components/profile/user-profile/user-profile';
 import { UsersAdminComponent } from './components/admin/users-admin/users-admin';
+import { NewsCheck } from './components/news-check/news-check';
 
 export const routes: Routes = [
     {
@@ -26,6 +27,7 @@ export const routes: Routes = [
       { path: 'posts/:id/edit', component: PostFormComponent },
       { path: 'profile', component: UserProfileComponent },
       { path: 'admin/users', component: UsersAdminComponent },
+      { path: 'news-check', component: NewsCheck },
     ],
   },
   { path: 'signup', component: Signup },

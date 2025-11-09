@@ -1,10 +1,17 @@
 <div class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
-  <app-sidebar></app-sidebar>
-  <app-header></app-header>
+<app-header></app-header>
 
-  <main class="container mx-auto px-4 py-8 max-w-3xl flex-grow">
+<div class="flex flex-grow">
+  <!-- Sidebar gets its own column -->
+  <app-sidebar class="w-64 shrink-0"></app-sidebar>
+
+  <!-- Main content takes remaining width -->
+  <main class="flex-grow w-full px-6 py-8">
     <router-outlet></router-outlet>
   </main>
+</div>
+
 
   <app-footer></app-footer>
+
 </div>
