@@ -13,7 +13,7 @@ interface Article {
   urlToImage?: string;
 
   translating?: boolean;
-  translations?: Record<string, string>; // { 'es': '...', 'fr': '...' }
+  translations?: Record<string, string>;
   translationError?: string;
 }
 
@@ -27,7 +27,7 @@ interface Language {
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,           // <-- Needed for ngModel
+    FormsModule,
     Sidebar,
     Header,
     Footer
@@ -41,7 +41,6 @@ export class TranslationComponent implements OnInit {
   error = '';
   selectedArticle: Article | null = null;
 
-  // --- Language list (add/remove as needed) ---
   languages: Language[] = [
     { code: 'es', name: 'Spanish' },
     { code: 'fr', name: 'French' },
@@ -55,13 +54,12 @@ export class TranslationComponent implements OnInit {
     { code: 'hi', name: 'Hindi' },
   ];
 
-  selectedLang = 'es'; // default
+  selectedLang = 'es';
 
-  // --- Mistral AI ---
   private mistralApiUrl = 'https://api.mistral.ai/v1/chat/completions';
   private mistralApiKey = '1X7K499HhPVdqVUJ5TKlkPGXeJDR4omO';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.fetchArticles();
@@ -98,16 +96,14 @@ export class TranslationComponent implements OnInit {
     this.selectedArticle = null;
   }
 
-  // Optional: reset selected language when modal opens
   onLangChange() {
     // no-op, just for reactivity
   }
 
-  getLangName(code: string): string {
-    return this.languages.find(l => l.code === code)?.name ?? code;
-  }
+getLangName(code: string): string {
+  return this.languages.find(l => l.code === code)?.name ?? code;
+}
 
-  /** Translate article to a specific language */
   translateArticle(article: Article, langCode: string) {
     if (article.translating || article.translations?.[langCode]) return;
 
