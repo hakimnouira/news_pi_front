@@ -1,0 +1,40 @@
+:host { display: block; }
+.page { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+h2 { color: #cfd8ff; }
+
+.grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+
+.card {
+  background: #0f172a;
+  border: 1px solid #1f2a44;
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 10px 28px rgba(0,0,0,.25);
+}
+
+.thumb {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #243355;
+  background: #0b1222;
+  margin-bottom: .6rem;
+}
+
+.top { display: flex; gap: .5rem; align-items: baseline; }
+.title { color: #e2e8f0; margin: 0; }
+.id { color: #8aa0ff; font-size: .85rem; }
+.excerpt { color: #a8b3cf; margin: .35rem 0 .5rem; max-height: 4.5em; overflow: hidden; }
+.meta { color: #8691ac; font-size: .85rem; }
+
+.actions { display: flex; gap: .5rem; margin-top: .75rem; }
+.btn { background: #18213a; border: 1px solid #253255; color: #dbe2ff; border-radius: 10px; padding: .45rem .8rem; cursor: pointer; text-decoration: none; }
+.btn:hover { background: #1c2746; }
+.btn.primary { background: #673ab7; border-color: #7e57c2; }
+.btn.primary:hover { background: #7450bf; }
+.btn.danger { background: #b71c1c; border-color: #d32f2f; }
+
+.alert.error { color: #ff8a80; margin-bottom: .5rem; }
+.muted { color: #8c95b2; }

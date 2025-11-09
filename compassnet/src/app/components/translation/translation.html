@@ -1,0 +1,81 @@
+<div class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
+    <app-sidebar></app-sidebar>
+    <app-header></app-header>
+
+    <div class="wrap">
+        <!-- ===== Top Bar ===== -->
+        <header class="topbar">
+            <h1>Latest Articles</h1>
+            <div class="controls">
+                <button class="btn refresh" (click)="fetchArticles()" [disabled]="loading">Refresh</button>
+            </div>
+        </header>
+
+        <!-- ===== Main Layout ===== -->
+        <section class="board">
+            <div class="main">
+                <div *ngIf="loading" class="note info">Loading latest articles…</div>
+                <div *ngIf="error" class="note error">{{ error }}</div>
+
+                <ng-container *ngIf="!loading && !error">
+                    <div class="article-card" *ngFor="let article of articles" (click)="openModal(article)">
+                        <h2>{{ article.title }}</h2>
+                        <img *ngIf="article.urlToImage" [src]="article.urlToImage" alt="Article image" />
+                        <p>{{ article.description }}</p>
+                        <span class="read-more">Click to view →</span>
+                    </div>
+                </ng-container>
+            </div>
+
+            <aside class="sidebar">
+                <article class="panel">
+                    <h2>Summary</h2>
+                    <p>Stay updated with the latest news. Click refresh to fetch newest articles.</p>
+                </article>
+            </aside>
+        </section>
+    </div>
+
+    <app-footer></app-footer>
+
+    <!-- ==================== MODAL ==================== -->
+    <div class="modal" *ngIf="selectedArticle">
+        <div class="modal-backdrop" (click)="closeModal()"></div>
+        <div class="modal-content">
+            <button class="close-btn" (click)="closeModal()">Close</button>
+
+            <h2>{{ selectedArticle.title }}</h2>
+            <img *ngIf="selectedArticle.urlToImage" [src]="selectedArticle.urlToImage" alt="Article image" />
+
+            <!-- Language selector in modal -->
+            <div class="translate-controls mt-4">
+                <select class="lang-select" [(ngModel)]="selectedLang" (ngModelChange)="onLangChange()">
+                    <option *ngFor="let lang of languages" [value]="lang.code">
+                        {{ lang.name }}
+                    </option>
+                </select>
+
+                <button class="btn translate-btn" (click)="translateArticle(selectedArticle, selectedLang)"
+                    [disabled]="selectedArticle.translating">
+                    {{ selectedArticle.translating ? 'Translating…' : 'Translate' }}
+                </button>
+            </div>
+
+            <div class="original-text mt-4">
+                <strong>Original (English):</strong>
+                <p>{{ selectedArticle.description }}</p>
+            </div>
+
+            <!-- Show translation if exists for selected language -->
+            <p *ngIf="selectedArticle.translations; else originalDesc" class="mt-3">
+                <strong>Translated ({{ getLangName(selectedLang) }}):</strong>
+                {{ selectedArticle.translations[selectedLang] }}
+            </p>
+            <ng-template #originalDesc>
+                <p class="mt-3">{{ selectedArticle.description }}</p>
+            </ng-template>
+
+            <a [href]="selectedArticle.url" target="_blank" class="mt-4 inline-block">Read full article →</a>
+        </div>
+    </div>
+</div>

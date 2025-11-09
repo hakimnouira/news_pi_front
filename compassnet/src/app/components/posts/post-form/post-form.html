@@ -1,0 +1,50 @@
+<div class="page">
+  <div class="header">
+    <h2>{{ isEdit ? 'Edit Post' : 'New Post' }}</h2>
+    <a class="btn" [routerLink]="['/posts']">Back to Posts</a>
+  </div>
+
+  <div class="alert error" *ngIf="error">{{ error }}</div>
+  <div class="muted" *ngIf="loading">Loading…</div>
+
+  <form class="card" (ngSubmit)="submit()" *ngIf="!loading">
+    <label>Title</label>
+    <input type="text" [(ngModel)]="form.title" name="title" placeholder="Post title" />
+
+    <label>Content</label>
+    <textarea rows="10" [(ngModel)]="form.content" name="content" placeholder="Write your post…"></textarea>
+
+    <div class="media-block">
+      <label>Media (image or video, optional)</label>
+      <input type="file" accept="image/*,video/*" (change)="onFileSelected($event)" />
+
+      <!-- Preview of new selected file -->
+      <div class="preview" *ngIf="selectedPreviewUrl">
+        <ng-container [ngSwitch]="selectedMediaType">
+          <img *ngSwitchCase="'image'" [src]="selectedPreviewUrl" alt="preview" />
+          <video *ngSwitchCase="'video'" [src]="selectedPreviewUrl" controls></video>
+          <div *ngSwitchDefault class="muted">Invalid media type</div>
+        </ng-container>
+        <button type="button" class="btn small danger" (click)="removeSelectedFile()">Remove selected</button>
+      </div>
+
+      <!-- Existing media (edit mode) -->
+      <div class="preview" *ngIf="!selectedPreviewUrl && existingMediaUrl">
+        <ng-container [ngSwitch]="existingMediaType">
+          <img *ngSwitchCase="'image'" [src]="existingMediaUrl" alt="media" />
+          <video *ngSwitchCase="'video'" [src]="existingMediaUrl" controls></video>
+          <div *ngSwitchDefault class="muted">Unknown media</div>
+        </ng-container>
+
+        <label class="clear-toggle" *ngIf="isEdit">
+          <input type="checkbox" [checked]="clearExistingMedia" (change)="toggleClearExisting()" />
+          <span>Remove existing media</span>
+        </label>
+      </div>
+    </div>
+
+    <button class="btn primary" type="submit" [disabled]="loading">
+      {{ isEdit ? 'Save Changes' : 'Create Post' }}
+    </button>
+  </form>
+</div>
