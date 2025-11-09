@@ -13,6 +13,7 @@ import { UserProfileComponent } from './components/profile/user-profile/user-pro
 import { UsersAdminComponent } from './components/admin/users-admin/users-admin';
 import { NewsCheck } from './components/news-check/news-check';
 import { NewsFilterComponent } from './components/news-filter/news-filter';
+import { SentimentAnalysis } from './components/sentiment-analysis/sentiment-analysis';
 
 export const routes: Routes = [
     {
@@ -29,7 +30,8 @@ export const routes: Routes = [
       { path: 'profile', component: UserProfileComponent },
       { path: 'admin/users', component: UsersAdminComponent },
       { path: 'news-check', component: NewsCheck },
-      { path: 'news-filter', component: NewsFilterComponent } // <-- updated
+      { path: 'news-filter', component: NewsFilterComponent },
+      { path: 'sentiment-analysis', component: SentimentAnalysis }
     ],
   },
   { path: 'signup', component: Signup },
