@@ -5,10 +5,11 @@ import { Signin } from './components/signin/signin';
 import { Antiprop } from './components/antiprop/antiprop';
 import { GeoRagGame } from './components/geo-rag-game/geo-rag-game';
 import { Home } from './components/home/home';
+import { TranslationComponent } from './components/translation/translation';
 
 export const routes: Routes = [
     {
-    path: '',  // Top-level: main screen
+    path: '',
     component: Main,
     children: [
       { path: '', component: Home },
@@ -16,7 +17,8 @@ export const routes: Routes = [
       { path: 'geo-rag-game', component: GeoRagGame },
     ],
   },
-  { path: 'signup', component: Signup },  // Top-level: /signup
-  { path: 'signin', component: Signin },  // Top-level: /signin
-  { path: '**', redirectTo: '' },  // Wildcard redirect to home
+  { path: 'signup', component: Signup },
+  { path: 'signin', component: Signin },
+  { path: 'articles', component: TranslationComponent },
+  { path: '**', redirectTo: '' },
 ];
