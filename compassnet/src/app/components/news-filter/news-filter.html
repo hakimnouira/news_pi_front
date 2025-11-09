@@ -1,0 +1,55 @@
+<div class="wrap">
+  <!-- ===== Top Controls ===== -->
+  <header class="topbar">
+    <h1>📰 News Safety Analyzer</h1>
+
+    <div class="controls">
+      <label class="ctrl block">
+        <span>Paste your article(s)</span>
+        <textarea [(ngModel)]="inputText" placeholder="Enter news text..." rows="5" class="w-full p-2 rounded border"></textarea>
+      </label>
+
+      <button class="btn primary mt-2" (click)="analyzeText()" [disabled]="loading">
+        <ng-container *ngIf="!loading">Analyze</ng-container>
+        <ng-container *ngIf="loading">Processing…</ng-container>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== Results Section ===== -->
+  <section class="board mt-6 grid grid-cols-1 gap-4">
+
+    <article class="panel" *ngIf="results?.length">
+      <h2>Analysis Results</h2>
+
+      <div *ngFor="let res of results; index as i" class="mb-4 p-3 border rounded shadow-sm">
+        <h3>📰 Article {{ i + 1 }}</h3>
+        <p class="prose">{{ res.text }}</p>
+
+        <ul class="mt-2">
+          <li *ngFor="let label of labels">
+            <b>{{ label }}:</b> {{ res.scores[label] | number:'1.0-2' }} (Threshold: {{ thresholds[label] }})
+          </li>
+        </ul>
+
+        <div class="mt-1 font-semibold" [ngClass]="{'text-red-600': res.status==='Unsafe', 'text-green-600': res.status==='Safe'}">
+  ➡ Status: {{ res.status }}
+</div>
+
+<!-- 🧠 Show explanation -->
+<div class="mt-2 p-2 rounded text-sm"
+     [ngClass]="{
+       'bg-red-50 text-red-700': res.status === 'Unsafe',
+       'bg-green-50 text-green-700': res.status === 'Safe'
+     }">
+  {{ res.explanation }}
+</div>
+
+      </div>
+    </article>
+
+    <article class="panel" *ngIf="!results?.length && !loading" class="note info">
+      Enter text above and click Analyze to see results.
+    </article>
+  </section>
+</div>
