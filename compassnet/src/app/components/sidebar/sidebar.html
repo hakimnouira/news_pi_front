@@ -30,7 +30,17 @@
     <button routerLink="/posts" routerLinkActive="active-link" class="sidebar-btn">
       Our Community Posts !
     </button>
-        <button routerLink="/" routerLinkActive="active-link" class="sidebar-btn">
+
+    <button routerLink="/profile" routerLinkActive="active-link" class="sidebar-btn">
+      Profile
+    </button>
+
+    <!-- Admin-only -->
+    <button *ngIf="isAdmin()" routerLink="/admin/users" routerLinkActive="active-link" class="sidebar-btn">
+      Admin › Users
+    </button>
+
+    <button routerLink="/" routerLinkActive="active-link" class="sidebar-btn">
       Placeholder
     </button>
 

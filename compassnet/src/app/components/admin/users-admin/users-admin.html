@@ -1,0 +1,115 @@
+<div class="page" *ngIf="!loading; else loadingTpl">
+  <div class="header">
+    <h2>Admin — Users</h2>
+    <button class="btn" (click)="refresh()">Refresh</button>
+  </div>
+
+  <div class="alert error" *ngIf="error">{{ error }}</div>
+
+  <!-- Create Role -->
+  <div class="card role-creator">
+    <div class="role-creator-row">
+      <input
+        placeholder="New role name (e.g., journalist)"
+        [(ngModel)]="newRole"
+        name="newRole"
+        (keyup.enter)="createRole()"
+      />
+      <button class="btn" [disabled]="creating || !newRole.trim()" (click)="createRole()">
+        {{ creating ? 'Creating…' : 'Create Role' }}
+      </button>
+      <span class="muted">Create once, then assign to users below.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <table class="users">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>Email</th>
+          <th>Roles</th>
+          <th>Status</th>
+          <th style="width: 320px;">Grant Role / Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let u of users">
+          <td>{{ u.id }}</td>
+
+          <td>
+            <div class="userline">
+              <div class="uname">@{{ u.username }}</div>
+              <div class="name" *ngIf="u.first_name || u.last_name">
+                {{ u.first_name || '' }} {{ u.last_name || '' }}
+              </div>
+            </div>
+          </td>
+
+          <td>{{ u.email }}</td>
+
+          <!-- Roles as inline chips with revoke (×) -->
+          <td class="roles-cell">
+            <span class="badge" *ngFor="let r of u.roles">
+              {{ r.name }}
+              <button
+                class="badge-x"
+                title="Revoke"
+                *ngIf="canRevoke(u, r.name)"
+                (click)="revokeRole(u, r.name)"
+                aria-label="Revoke {{ r.name }}"
+              >×</button>
+            </span>
+          </td>
+
+          <td>
+            <span class="status" [class.on]="u.is_active" [class.off]="!u.is_active">
+              {{ u.is_active ? 'Active' : 'Banned' }}
+            </span>
+          </td>
+
+          <!-- Actions -->
+          <td class="actions">
+            <div class="action-bar">
+              <select [(ngModel)]="rolePick[u.id]" name="assign-{{u.id}}">
+                <option *ngFor="let r of roles" [value]="r.name">{{ r.name }}</option>
+              </select>
+
+              <button
+                class="btn pill primary"
+                (click)="assignRole(u)"
+                [disabled]="assignLoading[u.id]"
+                title="Assign selected role"
+                aria-label="Assign role"
+              >
+                <span class="icon" *ngIf="!assignLoading[u.id]">➕</span>
+                <span class="spinner" *ngIf="assignLoading[u.id]"></span>
+                <span>Assign</span>
+              </button>
+
+              <button
+                class="btn pill"
+                [class.danger]="u.is_active"
+                [class.success]="!u.is_active"
+                (click)="toggleActive(u)"
+                [disabled]="statusLoading[u.id]"
+                [title]="u.is_active ? 'Ban user' : 'Unban user'"
+                [attr.aria-label]="u.is_active ? 'Ban user' : 'Unban user'"
+              >
+                <span class="icon" *ngIf="!statusLoading[u.id]">{{ u.is_active ? '🚫' : '✅' }}</span>
+                <span class="spinner" *ngIf="statusLoading[u.id]"></span>
+                <span>{{ u.is_active ? 'Ban' : 'Unban' }}</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #loadingTpl>
+  <div class="page muted">Loading…</div>
+</ng-template>
