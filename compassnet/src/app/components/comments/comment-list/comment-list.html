@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="head">
+    <h3>Comments</h3>
+    <span class="muted" *ngIf="loading">Loading…</span>
+  </div>
+
+  <div class="alert error" *ngIf="error">{{ error }}</div>
+  <div *ngIf="!loading && comments.length === 0" class="muted">No comments yet.</div>
+
+  <ul class="list" *ngIf="comments.length">
+    <li *ngFor="let c of comments">
+      <div class="top">
+        <span class="cid">#{{ c.id }}</span>
+        <span class="meta">by user {{ c.author_id }}</span>
+        <span class="spacer"></span>
+
+        <ng-container *ngIf="isOwner(c)">
+          <button class="btn small" (click)="startEdit(c)" *ngIf="editId !== c.id">Edit</button>
+          <button class="btn small danger" (click)="delete(c)" *ngIf="editId !== c.id">Delete</button>
+        </ng-container>
+      </div>
+
+      <div *ngIf="editId === c.id; else viewMode">
+        <textarea rows="3" [(ngModel)]="editText"></textarea>
+        <div class="row-actions">
+          <button class="btn small" (click)="cancelEdit()">Cancel</button>
+          <button class="btn small primary" (click)="saveEdit(c)">Save</button>
+        </div>
+      </div>
+
+      <ng-template #viewMode>
+        <p class="body">{{ c.content }}</p>
+      </ng-template>
+    </li>
+  </ul>
+</div>
